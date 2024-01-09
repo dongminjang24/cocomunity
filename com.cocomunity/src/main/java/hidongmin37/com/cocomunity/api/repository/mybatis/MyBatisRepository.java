@@ -20,21 +20,22 @@ public class MyBatisRepository implements PostMapper{
 
     @Override
     public void save(Post post) {
-
+        postMapper.save(post);
     }
 
     @Override
     public void update(Long id, PostUpdateDto postUpdateDto) {
+        postMapper.update(id,postUpdateDto);
 
     }
 
     @Override
     public Optional<Post> findById(Long id) {
-        return Optional.empty();
+        return postMapper.findById(id);
     }
 
     @Override
     public List<Post> findAll(PostSearchDto postSearchDto) {
-        return null;
+        return  postMapper.findAll(postSearchDto);
     }
 }
