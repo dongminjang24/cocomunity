@@ -1,18 +1,17 @@
-package hidongmin37.com.cocomunity.api.domain.post;
+package hidongmin37.com.cocomunity.app.domain.post;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class Post {
-    private Long id;
+    private  Long postId;
 
     private String title;
 
     private String contents;
-
-    private Integer quantity;
 
     private int viewCount;
 
@@ -20,15 +19,17 @@ public class Post {
 
     private LocalDateTime createdDatetime;
 
-    private LocalDateTime updatedDatetime;
+    private LocalDateTime updatedDatetime = null;
 
-    public Post(String title, String contents, Integer quantity, int viewCount, int likeCount, LocalDateTime createdDatetime, LocalDateTime updatedDatetime) {
+    @Builder
+
+    public Post(Long postId, String title, String contents, int viewCount, int likeCount, LocalDateTime createdDatetime, LocalDateTime updatedDatetime) {
+        this.postId = postId;
         this.title = title;
         this.contents = contents;
-        this.quantity = quantity;
         this.viewCount = viewCount;
         this.likeCount = likeCount;
         this.createdDatetime = createdDatetime;
-        this.updatedDatetime = null;
+        this.updatedDatetime = updatedDatetime;
     }
 }

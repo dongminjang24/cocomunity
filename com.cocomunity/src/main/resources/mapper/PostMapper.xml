@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hidongmin37.com.cocomunity.app.repository.mybatis.PostMapper">
+    <insert id="save">
+        INSERT INTO POST(TITLE, CONTENTS, VIEW_COUNT, LIKE_COUNT, CREATED_DATETIME, UPDATED_DATETIME)
+        VALUES (#{title}, #{contents}, #{likeCount}, #{viewCount}, #{createdDatetime}, #{updatedDatetime})
+    </insert>
+
+    <select id="findById"  resultType="Post">
+        SELECT POST_ID,
+               TITLE,
+               CONTENTS,
+               VIEW_COUNT,
+               LIKE_COUNT,
+               CREATED_DATETIME,
+               UPDATED_DATETIME
+        FROM POST WHERE POST_ID =  #{postId}
+    </select>
+    <select id="findAll" resultType="Post">
+        SELECT POST_ID,
+        TITLE,
+        CONTENTS,
+        VIEW_COUNT,
+        LIKE_COUNT,
+        CREATED_DATETIME,
+        UPDATED_DATETIME
+        FROM POST
+        <where>
+            <if test='titleOrContents != null and titleOrContents != ""'>
+                OR UPPER(TITLE) like concat('%',UPPER(#{titleOrContents}),'%')
+                OR UPPER(CONTENTS) like concat('%',UPPER(#{titleOrContents}),'%')
+            </if>
+
+        </where>
+        ORDER BY POST_ID DESC
+    </select>
+
+</mapper>

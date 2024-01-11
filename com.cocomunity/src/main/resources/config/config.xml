@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+    <typeAliases>
+        <typeAlias type="hidongmin37.com.cocomunity.app.domain.post.Post" alias="Post"/>
+        <typeAlias type="hidongmin37.com.cocomunity.app.domain.post.PostSearchDto" alias="PostSearchDto"/>
+
+    </typeAliases>
+
+</configuration>

@@ -1,8 +1,8 @@
-package hidongmin37.com.cocomunity.api.repository.mybatis;
+package hidongmin37.com.cocomunity.app.repository.mybatis;
 
-import hidongmin37.com.cocomunity.api.domain.post.Post;
-import hidongmin37.com.cocomunity.api.domain.post.PostSearchDto;
-import hidongmin37.com.cocomunity.api.domain.post.PostUpdateDto;
+import hidongmin37.com.cocomunity.app.domain.post.Post;
+import hidongmin37.com.cocomunity.app.domain.post.PostSearchDto;
+import hidongmin37.com.cocomunity.app.domain.post.PostUpdateDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

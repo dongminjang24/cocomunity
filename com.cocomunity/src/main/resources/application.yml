@@ -1,14 +1,26 @@
 spring:
+  config:
+    activate:
+      on-profile: test
   h2:
     console:
       enabled: true
       path: /h2-console
   datasource:
-    url: jdbc:h2:mem:hidongmin37
+    url: jdbc:h2:mem:com.cocomunity
     username: sa
     password:
     driver-class-name: org.h2.Driver
-mybatis:
-  configuration:
-    map-underscore-to-camel-case: true
-  type-aliases-package: hidongmin37.com.cocomunity.api.domain
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: "jdbc:mysql://localhost/personal_post"
+    username: "root"
+    password: "abcd1234"
+    driver-class-name: com.mysql.cj.jdbc.Driver

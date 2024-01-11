@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>게시판 목록</h2>
+    </div>
+
+    <form th:object="${postSearch}" method="get" class="form-inline">
+        <div class="row">
+            <div class="col">
+                <input type="text" th:field="*{titleOrContents}" class="form-control" placeholder="글제목"/>
+            </div>
+
+            <div class="col">
+                <button type="submit" class="btn btn-secondary mb-2">검색</button>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <div class="col">
+                    <button class="btn btn-primary float-end"
+                            onclick="location.href='addForm.html'"
+                            th:onclick="|location.href='@{/posts/save}'|"
+                            type="button">게시글 등록
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>좋아요수</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${posts}">
+                <td><a href="detail.html" th:href="@{/posts/{postId}(itemId=${post.postId})}" th:text="${post.postId}">게시글ID</a>
+                </td>
+                <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.title}">제목</a></td>
+                <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.contents}">내용</a></td>
+                <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.likeCount}">좋아요수</a></td>
+                <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.viewCount}">조회수</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div> <!-- /container -->
+
+</body>
+</html>
