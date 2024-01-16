@@ -1,6 +1,7 @@
 package hidongmin37.com.cocomunity.app.domain.post;
 
-import lombok.Builder;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -9,19 +10,24 @@ import java.time.LocalDateTime;
 public class Post {
     private  Long postId;
 
+    @NotBlank
+    @NotNull
     private String title;
 
+    @NotNull
     private String contents;
 
     private int viewCount;
 
     private int likeCount;
 
+    @NotNull
     private LocalDateTime createdDatetime;
 
     private LocalDateTime updatedDatetime = null;
 
-    @Builder
+    public Post() {
+    }
 
     public Post(Long postId, String title, String contents, int viewCount, int likeCount, LocalDateTime createdDatetime, LocalDateTime updatedDatetime) {
         this.postId = postId;
@@ -32,4 +38,9 @@ public class Post {
         this.createdDatetime = createdDatetime;
         this.updatedDatetime = updatedDatetime;
     }
+    public Post(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
+
 }

@@ -12,12 +12,18 @@ import java.util.Optional;
 @Mapper
 public interface PostMapper {
 
+
+    List<Post> findAll(PostSearchDto postSearchDto);
+    int count(PostSearchDto params);
+
     void save(Post post);
 
-    void update(@Param("id") Long id, @Param("updateParam") PostUpdateDto postUpdateDto);
+    void update(@Param("postId") Long postId, @Param("postUpdateDto") PostUpdateDto postUpdateDto);
 
     Optional<Post> findById(Long id);
 
-    List<Post> findAll(PostSearchDto postSearchDto);
+    void delete(Long id);
+
+    void updateViewCount(Post post);
 
 }

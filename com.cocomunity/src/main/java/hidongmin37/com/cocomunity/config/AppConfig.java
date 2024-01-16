@@ -15,11 +15,9 @@ public class AppConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/**/*.xml"));
-        sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:/config/config.xml"));
-
         sessionFactory.setDataSource(dataSource);
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mapper/**/*.xml"));
+        sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:/config/config.xml")); // 파일 경로 확인
         return sessionFactory.getObject();
-
     }
 }

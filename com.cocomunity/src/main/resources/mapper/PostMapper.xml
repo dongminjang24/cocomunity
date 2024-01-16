@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hidongmin37.com.cocomunity.app.repository.mybatis.PostMapper">
-    <insert id="save">
-        INSERT INTO POST(TITLE, CONTENTS, VIEW_COUNT, LIKE_COUNT, CREATED_DATETIME, UPDATED_DATETIME)
-        VALUES (#{title}, #{contents}, #{likeCount}, #{viewCount}, #{createdDatetime}, #{updatedDatetime})
+    <resultMap id="postResultMap" type="Post">
+        <id property="postId" column="POST_ID"/>
+        <result property="title" column="TITLE"/>
+        <result property="contents" column="CONTENTS"/>
+        <result property="viewCount" column="VIEW_COUNT"/>
+        <result property="likeCount" column="LIKE_COUNT"/>
+        <result property="createdDatetime" column="CREATED_DATETIME"/>
+        <result property="updatedDatetime" column="UPDATED_DATETIME"/>
+    </resultMap>
+
+    <insert id="save" parameterType="Post" useGeneratedKeys="true" keyProperty="postId">
+        INSERT INTO post(title, contents)
+        VALUES (#{title}, #{contents})
     </insert>
 
-    <select id="findById"  resultType="Post">
+    <select id="findById" resultMap="postResultMap">
         SELECT POST_ID,
                TITLE,
                CONTENTS,
@@ -16,7 +26,8 @@
                UPDATED_DATETIME
         FROM POST WHERE POST_ID =  #{postId}
     </select>
-    <select id="findAll" resultType="Post">
+
+    <select id="findAll"  resultMap="postResultMap">
         SELECT POST_ID,
         TITLE,
         CONTENTS,
@@ -26,13 +37,43 @@
         UPDATED_DATETIME
         FROM POST
         <where>
-            <if test='titleOrContents != null and titleOrContents != ""'>
-                OR UPPER(TITLE) like concat('%',UPPER(#{titleOrContents}),'%')
-                OR UPPER(CONTENTS) like concat('%',UPPER(#{titleOrContents}),'%')
+            1=1
+            <if test='keyword != null and keyword != ""'>
+                AND (UPPER(TITLE) like concat('%', UPPER(#{keyword}), '%')
+                OR UPPER(CONTENTS) like concat('%', UPPER(#{keyword}), '%'))
             </if>
-
         </where>
         ORDER BY POST_ID DESC
+        LIMIT #{offset}, #{recordSize}
     </select>
+
+    <select id="count" parameterType="PostSearchDto" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            POST
+    </select>
+
+    <update id="updateViewCount" >
+        update post
+        set VIEW_COUNT = #{viewCount}
+        where POST_ID = #{postId}
+    </update>
+
+
+
+
+
+    <update id="update">
+        update post
+        set TITLE = #{postUpdateDto.title},
+            CONTENTS = #{postUpdateDto.contents},
+            UPDATED_DATETIME= #{postUpdateDto.updatedDatetime}
+        where POST_ID = #{postId}
+    </update>
+
+    <delete id="delete">
+        delete from post where POST_ID = #{postId}
+    </delete>
 
 </mapper>

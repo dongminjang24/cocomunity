@@ -15,7 +15,7 @@
     <form th:object="${postSearch}" method="get" class="form-inline">
         <div class="row">
             <div class="col">
-                <input type="text" th:field="*{titleOrContents}" class="form-control" placeholder="글제목"/>
+                <input type="text" th:field="*{keyword}" class="form-control" placeholder="글제목"/>
             </div>
 
             <div class="col">
@@ -50,7 +50,8 @@
             </thead>
             <tbody>
             <tr th:each="post : ${posts}">
-                <td><a href="detail.html" th:href="@{/posts/{postId}(itemId=${post.postId})}" th:text="${post.postId}">게시글ID</a>
+                <td>
+                    <a href="detail.html" th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.postId}">게시글ID</a>
                 </td>
                 <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.title}">제목</a></td>
                 <td><a href="detail.html" th:href="@{|/posts/${post.postId}|}" th:text="${post.contents}">내용</a></td>
@@ -61,6 +62,13 @@
         </table>
     </div>
 
+    <div style="justify-content: center;align-items: center;display: flex;column-gap: 10px">
+        <a th:if="${paging.existPrevPage}" th:href="@{/posts/list(page=${paging.startPage-1})}">&laquo; 이전</a>
+        <span th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+            <a th:href="@{/posts/list(page=${pageNum})}" th:text="${pageNum}">1</a>
+        </span>
+        <a th:if="${paging.existNextPage}" th:href="@{/posts/list(page=${paging.endPage+1})}">다음 &raquo;</a>
+    </div>
 
 </div> <!-- /container -->
 
